@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: .start,
             children: [
-              Text("Hello, ${home.username}"),
+              Text("Hello, Hang Daro"),
               WeatherCard(
                 dateText: "12/23",
                 condition: "Will rain",

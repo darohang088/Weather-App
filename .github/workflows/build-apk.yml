@@ -1,4 +1,4 @@
-name: Build APK
+name: Build & Test
 
 on:
   push:
@@ -30,6 +30,24 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
+
+      # ---------- TEST FLOW ----------
+
+      # Optional but good for "senior" quality
+      - name: Run static analysis
+        run: flutter analyze
+
+      # This runs all your tests under `test/`
+      # (unit + widget tests, e.g. HomeProvider, HomePage)
+      - name: Run unit & widget tests
+        run: flutter test
+
+      # If later you add E2E tests with integration_test package in `integration_test/`,
+      # you can enable this step:
+      # - name: Run end-to-end tests
+      #   run: flutter test integration_test
+
+      # ---------- BUILD APK ----------
 
       - name: Build APK
         run: flutter build apk --release

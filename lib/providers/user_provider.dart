@@ -7,8 +7,6 @@ enum ForecastSection { today, hourly, monthly }
 enum WeatherStatus { sunny, cloudy, rainy, storm, snow, windy, fog }
 
 class HomeProvider extends ChangeNotifier {
-  String username = "Guest";
-
   final List<WeatherAlert> alerts = [];
 
   ForecastSection selectedSection = ForecastSection.today;
@@ -59,11 +57,6 @@ class HomeProvider extends ChangeNotifier {
       case ForecastSection.monthly:
         return monthlyItems;
     }
-  }
-
-  void setUsername(String value) {
-    username = value;
-    notifyListeners();
   }
 
   void setSection(ForecastSection section) {
