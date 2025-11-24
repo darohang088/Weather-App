@@ -57,7 +57,7 @@ for state management.
 ### Core Models
 
 - `HourData` – hourly forecast item (time, temperature, status)
-- `WeatherStatus` – enum for weather types (sunny, cloudy, rainy, storm, etc.)
+- `WeatherStatus` – enum for weather types (sunny, cloudy, rainy, storm, etc...)
 - `WeatherAlert` – configuration for a user-defined alert
 
 ---
