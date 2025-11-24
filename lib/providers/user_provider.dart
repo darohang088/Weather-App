@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/models/hour.dart';
+import 'package:weather_app/models/weather_alert.dart';
 
 enum ForecastSection { today, hourly, monthly }
 
 class HomeProvider extends ChangeNotifier {
   String username = "Guest";
+
+  final List<WeatherAlert> alerts = [];
 
   ForecastSection selectedSection = ForecastSection.today;
 
@@ -62,6 +65,11 @@ class HomeProvider extends ChangeNotifier {
   void setSection(ForecastSection section) {
     if (section == selectedSection) return;
     selectedSection = section;
+    notifyListeners();
+  }
+
+  void addAlert(WeatherAlert alert) {
+    alerts.add(alert);
     notifyListeners();
   }
 }
