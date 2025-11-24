@@ -6,7 +6,7 @@ import 'app/app.dart';
 void main() {
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => UserProvider())],
+      providers: [ChangeNotifierProvider(create: (_) => HomeProvider())],
       child: const MyApp(),
     ),
   );
