@@ -4,6 +4,8 @@ import 'package:weather_app/models/weather_alert.dart';
 
 enum ForecastSection { today, hourly, monthly }
 
+enum WeatherStatus { sunny, cloudy, rainy, storm, snow, windy, fog }
+
 class HomeProvider extends ChangeNotifier {
   String username = "Guest";
 
@@ -12,38 +14,40 @@ class HomeProvider extends ChangeNotifier {
   ForecastSection selectedSection = ForecastSection.today;
 
   // Dummy data – replace with API data later
-  final List<HourData> todayItems = [
-    HourData('10 am', 16, Icons.cloud_queue),
-    HourData('11 am', 17, Icons.cloudy_snowing),
-    HourData('12 pm', 18, Icons.thunderstorm_outlined),
-    HourData('01 pm', 19, Icons.cloudy_snowing),
+  final todayItems = [
+    HourData('10 am', 16, WeatherStatus.cloudy),
+    HourData('11 am', 17, WeatherStatus.rainy),
+    HourData('12 pm', 18, WeatherStatus.storm),
+    HourData('01 pm', 19, WeatherStatus.cloudy),
   ];
 
   final List<HourData> hourlyItems = [
-    HourData('02 pm', 20, Icons.cloud_queue),
-    HourData('03 pm', 21, Icons.cloud_outlined),
-    HourData('04 pm', 22, Icons.cloudy_snowing),
-    HourData('05 pm', 23, Icons.thunderstorm_outlined),
+    HourData('10 am', 16, WeatherStatus.cloudy),
+    HourData('11 am', 17, WeatherStatus.rainy),
+    HourData('12 pm', 18, WeatherStatus.storm),
+    HourData('01 pm', 19, WeatherStatus.cloudy),
   ];
 
   final List<HourData> monthlyItems = [
-    HourData('Mon', 24, Icons.wb_cloudy_outlined),
-    HourData('Tue', 25, Icons.wb_sunny_outlined),
-    HourData('Wed', 26, Icons.cloudy_snowing),
-    HourData('Thu', 27, Icons.thunderstorm_outlined),
+    HourData('Mon', 16, WeatherStatus.cloudy),
+    HourData('Tue', 16, WeatherStatus.cloudy),
+    HourData('Wed', 16, WeatherStatus.cloudy),
+    HourData('Thu', 16, WeatherStatus.cloudy),
   ];
 
   final hourItems = [
-    HourData('10 am', 16, Icons.cloud_queue),
-    HourData('11 am', 17, Icons.cloudy_snowing),
-    HourData('12 pm', 18, Icons.thunderstorm_outlined),
-    HourData('01 pm', 19, Icons.cloudy_snowing),
-    HourData('02 pm', 19, Icons.cloudy_snowing),
-    HourData('03 pm', 19, Icons.cloudy_snowing),
-    HourData('04 pm', 19, Icons.cloudy_snowing),
-    HourData('05 pm', 19, Icons.cloudy_snowing),
-    HourData('06 pm', 19, Icons.cloudy_snowing),
-    HourData('07 pm', 19, Icons.cloudy_snowing),
+    HourData('10 am', 16, WeatherStatus.cloudy),
+    HourData('11 am', 17, WeatherStatus.rainy),
+    HourData('12 pm', 18, WeatherStatus.storm),
+    HourData('01 pm', 19, WeatherStatus.cloudy),
+    HourData('10 am', 16, WeatherStatus.cloudy),
+    HourData('11 am', 17, WeatherStatus.rainy),
+    HourData('12 pm', 18, WeatherStatus.storm),
+    HourData('01 pm', 19, WeatherStatus.cloudy),
+    HourData('10 am', 16, WeatherStatus.cloudy),
+    HourData('11 am', 17, WeatherStatus.rainy),
+    HourData('12 pm', 18, WeatherStatus.storm),
+    HourData('01 pm', 19, WeatherStatus.cloudy),
   ];
 
   List<HourData> get currentItems {

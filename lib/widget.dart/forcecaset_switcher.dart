@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/providers/user_provider.dart';
+import 'package:weather_app/utils/icons_utils.dart';
 import 'package:weather_app/utils/spacing_extension.dart';
 import 'package:weather_app/widget.dart/hour_weathe_card.dart';
 
@@ -51,7 +52,7 @@ class ForecastSwitcher extends StatelessWidget {
               return HourlyWeatherCard(
                 timeLabel: item.time,
                 temperature: item.temp,
-                icon: item.icon,
+                icon: weatherStatusToIcon(item.status),
               );
             },
           ),

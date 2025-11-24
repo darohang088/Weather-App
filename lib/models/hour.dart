@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:weather_app/providers/user_provider.dart';
 
 class HourData {
   final String time;
   final int temp;
-  final IconData icon;
+   final WeatherStatus status;
 
-  HourData(this.time, this.temp, this.icon);
+  HourData(this.time, this.temp, this.status);
 }
