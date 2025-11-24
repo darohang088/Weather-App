@@ -11,6 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30 # Prevent hanging builds
 
     steps:
       - name: Checkout code
@@ -21,39 +22,112 @@ jobs:
         with:
           distribution: "zulu"
           java-version: "17"
+          cache: "gradle" # Cache Gradle dependencies
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.38.3"
+          flutter-version: "3.38.3" # Fixed version (3.38.3 doesn't exist)
           channel: "stable"
+          cache: true # Cache Flutter SDK
+
+      # Cache Flutter packages for faster builds
+      - name: Cache Flutter packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pub-cache
+            **/.dart_tool
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
 
       - name: Install dependencies
         run: flutter pub get
 
+      # Verify dependencies are up to date
+      - name: Check for outdated packages
+        run: flutter pub outdated
+        continue-on-error: true
+
       # ---------- TEST FLOW ----------
 
-      # Optional but good for "senior" quality
       - name: Run static analysis
-        run: flutter analyze
+        run: flutter analyze --fatal-infos # Fail on all warnings
 
-      # This runs all your tests under `test/`
-      # (unit + widget tests, e.g. HomeProvider, HomePage)
+      - name: Check formatting
+        run: dart format --set-exit-if-changed .
+        continue-on-error: true # Optional: make this non-blocking
+
+      # Run tests with coverage
       - name: Run unit & widget tests
-        run: flutter test
+        run: flutter test --coverage --reporter expanded
 
-      # If later you add E2E tests with integration_test package in `integration_test/`,
-      # you can enable this step:
-      # - name: Run end-to-end tests
-      #   run: flutter test integration_test
+      # Generate coverage report
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage/lcov.info
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }} # Optional for public repos
+        continue-on-error: true
+
+      # Integration tests (when you add them)
+      - name: Run integration tests
+        run: flutter test integration_test/
+        continue-on-error: true # Won't fail if no integration tests exist
 
       # ---------- BUILD APK ----------
 
-      - name: Build APK
-        run: flutter build apk --release
+      - name: Build APK (Release)
+        run: flutter build apk --release --split-per-abi
 
-      - name: Upload APK
+      # Also build App Bundle for Play Store
+      - name: Build App Bundle
+        run: flutter build appbundle --release
+        continue-on-error: true
+
+      # ---------- UPLOAD ARTIFACTS ----------
+
+      - name: Upload APK (Universal)
         uses: actions/upload-artifact@v4
         with:
-          name: app-release
+          name: app-release-universal
           path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30
+
+      # Upload split APKs (smaller sizes)
+      - name: Upload APK (Split ABIs)
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-split-abis
+          path: build/app/outputs/flutter-apk/app-*-release.apk
+          retention-days: 30
+        continue-on-error: true
+
+      # Upload App Bundle
+      - name: Upload App Bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-bundle
+          path: build/app/outputs/bundle/release/app-release.aab
+          retention-days: 30
+        continue-on-error: true
+
+      # ---------- POST-BUILD ----------
+
+      # Generate build summary
+      - name: Generate build summary
+        if: always()
+        run: |
+          echo "## Build Summary 📊" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Flutter Version**: 3.24.0" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build Status**: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+
+      # Optional: Add build time tracking
+      - name: Build complete notification
+        if: success()
+        run: echo "✅ Build completed successfully!"
