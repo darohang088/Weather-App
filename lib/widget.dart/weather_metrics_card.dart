@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:weather_app/widget.dart/lottie_icon.dart';
 
 class WeatherMetricsCard extends StatelessWidget {
   final int windSpeed; // m/s
@@ -70,6 +72,15 @@ class _WeatherMetricItem extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Icon(icon, size: 24, color: color),
+
+        SizedBox(
+          width: 80,
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Lottie.asset("assets/images/weather_rain.json"),
+          ),
+        ),
+
         const SizedBox(height: 8),
         Text(
           valueText,

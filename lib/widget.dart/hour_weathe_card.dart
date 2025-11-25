@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:weather_app/widget.dart/lottie_icon.dart';
 
 class HourlyWeatherCard extends StatelessWidget {
   final String timeLabel; // e.g. "10 am"
@@ -35,7 +37,10 @@ class HourlyWeatherCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          Icon(icon, size: 26, color: color),
+          AppLottieIcon(
+            width: 50,
+            assetPath: "assets/images/weather_rain.json",
+          ),
           const SizedBox(height: 12),
           Text(
             '${temperature}º',

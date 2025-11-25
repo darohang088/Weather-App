@@ -42,7 +42,7 @@ class ForecastSwitcher extends StatelessWidget {
         12.height,
         // List for selected section
         SizedBox(
-          height: 140,
+          height: 150,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: provider.currentItems.length,
