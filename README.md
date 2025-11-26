@@ -62,6 +62,8 @@ for state management.
 
 ---
 
+![Weather UI](assets/images/img_readMe.jpg)
+
 ## Folder Structure
 
 ```text
