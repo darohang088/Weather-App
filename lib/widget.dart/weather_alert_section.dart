@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/models/weather_alert.dart';
 import 'package:weather_app/providers/user_provider.dart';
+import 'package:weather_app/utils/spacing_extension.dart';
 
 class WeatherAlertsSection extends StatelessWidget {
   const WeatherAlertsSection({super.key});
@@ -11,11 +12,11 @@ class WeatherAlertsSection extends StatelessWidget {
     final home = context.watch<HomeProvider>();
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: .start,
       children: [
         // Header row
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: .spaceBetween,
           children: [
             Text(
               'Weather Alerts',
@@ -31,7 +32,7 @@ class WeatherAlertsSection extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 8),
+        8.height,
 
         // List of alerts
         if (home.alerts.isEmpty)
@@ -46,7 +47,7 @@ class WeatherAlertsSection extends StatelessWidget {
             children: home.alerts
                 .map(
                   (a) => Container(
-                    margin: const EdgeInsets.only(bottom: 8),
+                    margin: 8.paddingBottom,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,
                       vertical: 10,
@@ -56,7 +57,7 @@ class WeatherAlertsSection extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: .spaceBetween,
                       children: [
                         Text(a.condition),
                         Text(
@@ -116,8 +117,8 @@ class _CreateAlertSheetState extends State<_CreateAlertSheet> {
         top: 16,
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: .min,
+        crossAxisAlignment: .start,
         children: [
           Center(
             child: Container(
@@ -136,7 +137,7 @@ class _CreateAlertSheetState extends State<_CreateAlertSheet> {
               context,
             ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
           ),
-          const SizedBox(height: 16),
+          16.height,
 
           // Condition dropdown
           Text(
@@ -168,7 +169,7 @@ class _CreateAlertSheetState extends State<_CreateAlertSheet> {
               }
             },
           ),
-          const SizedBox(height: 12),
+          12.height,
 
           // Above / Below
           Text(
@@ -177,7 +178,7 @@ class _CreateAlertSheetState extends State<_CreateAlertSheet> {
               context,
             ).textTheme.bodySmall?.copyWith(color: Colors.grey.shade600),
           ),
-          const SizedBox(height: 4),
+          4.height,
           Row(
             children: [
               ChoiceChip(
@@ -185,7 +186,7 @@ class _CreateAlertSheetState extends State<_CreateAlertSheet> {
                 selected: _above,
                 onSelected: (_) => setState(() => _above = true),
               ),
-              const SizedBox(width: 8),
+              8.width,
               ChoiceChip(
                 label: const Text('Below'),
                 selected: !_above,
@@ -193,7 +194,7 @@ class _CreateAlertSheetState extends State<_CreateAlertSheet> {
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          12.height,
 
           // Threshold
           Text(
@@ -202,7 +203,7 @@ class _CreateAlertSheetState extends State<_CreateAlertSheet> {
               context,
             ).textTheme.bodySmall?.copyWith(color: Colors.grey.shade600),
           ),
-          const SizedBox(height: 4),
+          4.height,
           TextField(
             controller: _thresholdController,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -211,17 +212,17 @@ class _CreateAlertSheetState extends State<_CreateAlertSheet> {
               hintText: 'e.g. 70',
             ),
           ),
-          const SizedBox(height: 16),
+          16.height,
 
           // Buttons
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: .end,
             children: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
                 child: const Text('Cancel'),
               ),
-              const SizedBox(width: 8),
+              8.width,
               ElevatedButton(
                 onPressed: () {
                   final value = double.tryParse(_thresholdController.text);

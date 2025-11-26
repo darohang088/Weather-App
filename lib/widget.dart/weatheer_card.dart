@@ -29,7 +29,7 @@ class WeatherCard extends StatelessWidget {
           // LEFT SIDE: date, condition, temperature
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 Text(
                   dateText,

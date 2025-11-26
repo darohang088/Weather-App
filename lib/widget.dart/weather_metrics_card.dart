@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:weather_app/providers/user_provider.dart';
+import 'package:weather_app/utils/icons_utils.dart';
+import 'package:weather_app/widget.dart/lottie_icon.dart';
 
 class WeatherMetricsCard extends StatelessWidget {
   final int windSpeed; // m/s
@@ -24,25 +27,28 @@ class WeatherMetricsCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: .spaceBetween,
         children: [
           _WeatherMetricItem(
             icon: Icons.air_rounded,
             valueText: '$windSpeed m/s',
             labelText: 'Wind',
             color: color,
+            weatherStatus: WeatherStatus.windy,
           ),
           _WeatherMetricItem(
             icon: Icons.water_drop_outlined,
             valueText: '$humidity%',
             labelText: 'Humidity',
             color: color,
+            weatherStatus: WeatherStatus.snow,
           ),
           _WeatherMetricItem(
             icon: Icons.cloudy_snowing, // or Icons.umbrella
             valueText: '$rainChance%',
             labelText: 'Rain',
             color: color,
+            weatherStatus: WeatherStatus.rainy,
           ),
         ],
       ),
@@ -55,12 +61,14 @@ class _WeatherMetricItem extends StatelessWidget {
   final String valueText;
   final String labelText;
   final Color color;
+  final WeatherStatus weatherStatus;
 
   const _WeatherMetricItem({
     required this.icon,
     required this.valueText,
     required this.labelText,
     required this.color,
+    required this.weatherStatus,
   });
 
   @override
@@ -75,8 +83,11 @@ class _WeatherMetricItem extends StatelessWidget {
         SizedBox(
           width: 80,
           child: Align(
-            alignment: Alignment.topLeft,
-            child: Lottie.asset("assets/images/weather_rain.json"),
+            alignment: .center,
+            child: AppLottieIcon(
+              width: 50,
+              assetPath: weatherAsset(weatherStatus),
+            ),
           ),
         ),
 
