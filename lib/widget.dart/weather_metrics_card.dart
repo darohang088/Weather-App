@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:weather_app/widget.dart/lottie_icon.dart';
 
 class WeatherMetricsCard extends StatelessWidget {
   final int windSpeed; // m/s

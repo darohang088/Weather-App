@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/models/hour.dart';
 import 'package:weather_app/providers/user_provider.dart';
-import 'package:weather_app/utils/icons_utils.dart';
 import 'package:weather_app/utils/spacing_extension.dart';
 import 'package:weather_app/widget.dart/hour_weathe_card.dart';
 
