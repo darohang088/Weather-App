@@ -1,8 +1,7 @@
 class WeatherAlert {
-  final String condition; // e.g. "Rain chance"
-  final double threshold; // e.g. 70
-  final bool above; // true = above, false = below
-
+  final String condition;
+  final double threshold;
+  final bool above;
   WeatherAlert({
     required this.condition,
     required this.threshold,

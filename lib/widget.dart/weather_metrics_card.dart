@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:weather_app/providers/user_provider.dart';
 import 'package:weather_app/utils/icons_utils.dart';
 import 'package:weather_app/widget.dart/lottie_icon.dart';

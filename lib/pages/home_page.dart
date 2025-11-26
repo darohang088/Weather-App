@@ -28,8 +28,8 @@ class _HomePageState extends State<HomePage> {
             children: [
               Text("Hello, Hang Daro"),
               WeatherCard(
-                dateText: "12/23",
-                condition: "Will rain",
+                dateText: "Phnom Penh",
+                condition: "Cloudy",
                 temperature: 40,
               ),
               14.height,

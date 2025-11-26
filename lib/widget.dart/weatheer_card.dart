@@ -31,11 +31,17 @@ class WeatherCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: .start,
               children: [
-                Text(
-                  dateText,
-                  style: textTheme.bodySmall?.copyWith(
-                    color: Colors.grey.shade500,
-                  ),
+                Row(
+                  children: [
+                    Icon(Icons.my_location_outlined, size: 18),
+                    5.width,
+                    Text(
+                      dateText,
+                      style: textTheme.bodySmall?.copyWith(
+                        color: Colors.grey.shade500,
+                      ),
+                    ),
+                  ],
                 ),
                 6.height,
                 Text(
