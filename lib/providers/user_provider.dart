@@ -27,10 +27,18 @@ class HomeProvider extends ChangeNotifier {
   ];
 
   final List<HourData> monthlyItems = [
-    HourData('Mon', 16, WeatherStatus.cloudy),
-    HourData('Tue', 16, WeatherStatus.cloudy),
-    HourData('Wed', 16, WeatherStatus.cloudy),
-    HourData('Thu', 16, WeatherStatus.cloudy),
+    HourData('jan', 16, WeatherStatus.cloudy),
+    HourData('feb', 16, WeatherStatus.rainy),
+    HourData('march', 16, WeatherStatus.cloudy),
+    HourData('april', 16, WeatherStatus.windy),
+    HourData('may', 16, WeatherStatus.cloudy),
+    HourData('june', 16, WeatherStatus.cloudy),
+    HourData('july', 16, WeatherStatus.cloudy),
+    HourData('aug', 16, WeatherStatus.cloudy),
+    HourData('sep', 16, WeatherStatus.cloudy),
+    HourData('oct', 16, WeatherStatus.cloudy),
+    HourData('nov', 16, WeatherStatus.cloudy),
+    HourData('dec', 16, WeatherStatus.cloudy),
   ];
 
   final hourItems = [

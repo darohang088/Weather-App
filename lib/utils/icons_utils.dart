@@ -19,3 +19,22 @@ IconData weatherStatusToIcon(WeatherStatus status) {
       return Icons.water_drop; // or fog icon if available
   }
 }
+
+String weatherAsset(WeatherStatus status) {
+  switch (status) {
+    case WeatherStatus.sunny:
+      return "assets/images/weather_none.json";
+    case WeatherStatus.cloudy:
+      return "assets/images/weather_cloud.json";
+    case WeatherStatus.rainy:
+      return "assets/images/weather_rain.json";
+    case WeatherStatus.storm:
+      return "assets/images/weather_none.json";
+    case WeatherStatus.snow:
+      return "assets/images/weather_cloud.json";
+    case WeatherStatus.windy:
+      return "assets/images/weather_none.json";
+    case WeatherStatus.fog:
+      return "assets/images/weather_rain.json";
+  }
+}

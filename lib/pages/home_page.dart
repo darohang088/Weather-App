@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:weather_app/providers/user_provider.dart';
 import 'package:weather_app/utils/app_safe_area.dart';
 import 'package:weather_app/utils/spacing_extension.dart';
 import 'package:weather_app/widget.dart/forcecaset_switcher.dart';
@@ -16,6 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<HomeProvider>();
     return Scaffold(
       body: AppSafeArea(
         padding: 20.paddingAll,
@@ -32,7 +35,19 @@ class _HomePageState extends State<HomePage> {
               14.height,
               WeatherMetricsCard(windSpeed: 12, humidity: 78, rainChance: 70),
               14.height,
-              const ForecastSwitcher(),
+              ForecastSwitcher(
+                selectedSection: provider.selectedSection,
+                todayOnTap: () {
+                  provider.setSection(ForecastSection.today);
+                },
+                hourlyOnTap: () {
+                  provider.setSection(ForecastSection.hourly);
+                },
+                monthlyOnTap: () {
+                  provider.setSection(ForecastSection.monthly);
+                },
+                currentItems: provider.currentItems,
+              ),
               30.height,
               const WeatherAlertsSection(),
             ],

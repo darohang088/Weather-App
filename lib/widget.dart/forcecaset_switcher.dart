@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:weather_app/models/hour.dart';
 import 'package:weather_app/providers/user_provider.dart';
 import 'package:weather_app/utils/icons_utils.dart';
 import 'package:weather_app/utils/spacing_extension.dart';
 import 'package:weather_app/widget.dart/hour_weathe_card.dart';
 
 class ForecastSwitcher extends StatelessWidget {
-  const ForecastSwitcher({super.key});
+  const ForecastSwitcher({
+    super.key,
+    required this.selectedSection,
+    required this.todayOnTap,
+    required this.hourlyOnTap,
+    required this.monthlyOnTap,
+    required this.currentItems,
+  });
+
+  final ForecastSection selectedSection;
+  final List<HourData> currentItems;
+  final Function() todayOnTap;
+  final Function() hourlyOnTap;
+  final Function() monthlyOnTap;
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<HomeProvider>();
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -20,39 +31,39 @@ class ForecastSwitcher extends StatelessWidget {
           children: [
             _ForecastTabItem(
               label: 'Today',
-              isSelected: provider.selectedSection == ForecastSection.today,
-              onTap: () => provider.setSection(ForecastSection.today),
+              isSelected: selectedSection == ForecastSection.today,
+              onTap: todayOnTap,
             ),
             25.width,
             _ForecastTabItem(
               label: 'Hourly',
-              isSelected: provider.selectedSection == ForecastSection.hourly,
-              onTap: () => provider.setSection(ForecastSection.hourly),
+              isSelected: selectedSection == ForecastSection.hourly,
+              onTap: hourlyOnTap,
             ),
             24.width,
             _ForecastTabItem(
               label: 'Monthly',
-              isSelected: provider.selectedSection == ForecastSection.monthly,
-              onTap: () => provider.setSection(ForecastSection.monthly),
+              isSelected: selectedSection == ForecastSection.monthly,
+              onTap: monthlyOnTap,
             ),
           ],
         ),
 
         8.height,
         12.height,
-        // List for selected section
+        // List for selected sections
         SizedBox(
           height: 150,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            itemCount: provider.currentItems.length,
+            itemCount: currentItems.length,
             separatorBuilder: (_, __) => 12.width,
             itemBuilder: (context, index) {
-              final item = provider.currentItems[index];
+              final item = currentItems[index];
               return HourlyWeatherCard(
                 timeLabel: item.time,
                 temperature: item.temp,
-                icon: weatherStatusToIcon(item.status),
+                weatherStatus: item.status,
               );
             },
           ),

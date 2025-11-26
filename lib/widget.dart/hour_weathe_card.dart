@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:weather_app/providers/user_provider.dart';
+import 'package:weather_app/utils/icons_utils.dart';
 import 'package:weather_app/widget.dart/lottie_icon.dart';
 
 class HourlyWeatherCard extends StatelessWidget {
-  final String timeLabel; // e.g. "10 am"
-  final int temperature; // e.g. 16
-  final IconData icon; // e.g. Icons.cloud_queue
+  final String timeLabel;
+  final int temperature;
+  final WeatherStatus weatherStatus;
 
   const HourlyWeatherCard({
     super.key,
     required this.timeLabel,
     required this.temperature,
-    required this.icon,
+    required this.weatherStatus,
   });
 
   @override
@@ -37,10 +39,7 @@ class HourlyWeatherCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          AppLottieIcon(
-            width: 50,
-            assetPath: "assets/images/weather_rain.json",
-          ),
+          AppLottieIcon(width: 50, assetPath: weatherAsset(weatherStatus)),
           const SizedBox(height: 12),
           Text(
             '${temperature}º',
