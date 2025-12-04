@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayEase Pro - Building Management System for Cambodia</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Khmer OS', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        .min-h-screen { min-height: 100vh; }
+        .bg-gradient-to-br { background: linear-gradient(to bottom right, var(--tw-gradient-stops)); }
+        .bg-gradient-to-r { background: linear-gradient(to right, var(--tw-gradient-stops)); }
+        .from-blue-600 { --tw-gradient-from: #2563eb; --tw-gradient-to: rgb(37 99 235 / 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        .via-blue-700 { --tw-gradient-to: rgb(29 78 216 / 0); --tw-gradient-stops: var(--tw-gradient-from), #1d4ed8, var(--tw-gradient-to); }
+        .to-purple-700 { --tw-gradient-to: #6b21a8; }
+        .to-blue-700 { --tw-gradient-to: #1d4ed8; }
+        .to-blue-600 { --tw-gradient-to: #2563eb; }
+        .from-blue-500 { --tw-gradient-from: #3b82f6; --tw-gradient-to: rgb(59 130 246 / 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        .from-green-500 { --tw-gradient-from: #10b981; --tw-gradient-to: rgb(16 185 129 / 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        .to-green-600 { --tw-gradient-to: #059669; }
+        .from-orange-500 { --tw-gradient-from: #f97316; --tw-gradient-to: rgb(249 115 22 / 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        .to-orange-600 { --tw-gradient-to: #ea580c; }
+        .from-purple-500 { --tw-gradient-from: #a855f7; --tw-gradient-to: rgb(168 85 247 / 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        .to-purple-600 { --tw-gradient-to: #9333ea; }
+        .from-yellow-500 { --tw-gradient-from: #eab308; --tw-gradient-to: rgb(234 179 8 / 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        .to-yellow-600 { --tw-gradient-to: #ca8a04; }
+        .from-indigo-500 { --tw-gradient-from: #6366f1; --tw-gradient-to: rgb(99 102 241 / 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        .to-indigo-600 { --tw-gradient-to: #4f46e5; }
+        .flex { display: flex; }
+        .grid { display: grid; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .items-start { align-items: flex-start; }
+        .p-4 { padding: 1rem; }
+        .p-6 { padding: 1.5rem; }
+        .p-8 { padding: 2rem; }
+        .p-2 { padding: 0.5rem; }
+        .p-3 { padding: 0.75rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+        .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+        .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+        .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+        .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+        .bg-white { background-color: white; }
+        .bg-gray-100 { background-color: #f3f4f6; }
+        .bg-gray-50 { background-color: #f9fafb; }
+        .bg-blue-100 { background-color: #dbeafe; }
+        .bg-blue-50 { background-color: #eff6ff; }
+        .bg-green-50 { background-color: #f0fdf4; }
+        .bg-green-100 { background-color: #dcfce7; }
+        .bg-red-50 { background-color: #fef2f2; }
+        .bg-red-100 { background-color: #fee2e2; }
+        .bg-red-500 { background-color: #ef4444; }
+        .bg-orange-50 { background-color: #fff7ed; }
+        .bg-orange-100 { background-color: #fed7aa; }
+        .bg-orange-500 { background-color: #f97316; }
+        .bg-yellow-50 { background-color: #fef3c7; }
+        .bg-yellow-100 { background-color: #fef3c7; }
+        .bg-purple-50 { background-color: #faf5ff; }
+        .bg-indigo-50 { background-color: #eef2ff; }
+        .text-white { color: white; }
+        .text-gray-500 { color: #6b7280; }
+        .text-gray-600 { color: #4b5563; }
+        .text-gray-700 { color: #374151; }
+        .text-gray-800 { color: #1f2937; }
+        .text-gray-900 { color: #111827; }
+        .text-blue-100 { color: #dbeafe; }
+        .text-blue-600 { color: #2563eb; }
+        .text-blue-800 { color: #1e40af; }
+        .text-green-600 { color: #059669; }
+        .text-green-800 { color: #166534; }
+        .text-green-100 { color: #dcfce7; }
+        .text-red-600 { color: #dc2626; }
+        .text-red-800 { color: #991b1b; }
+        .text-orange-100 { color: #fed7aa; }
+        .text-orange-600 { color: #ea580c; }
+        .text-orange-800 { color: #9a3412; }
+        .text-orange-900 { color: #7c2d12; }
+        .text-yellow-100 { color: #fef3c7; }
+        .text-yellow-800 { color: #854d0e; }
+        .text-purple-100 { color: #f3e8ff; }
+        .text-purple-600 { color: #9333ea; }
+        .text-purple-800 { color: #6b21a8; }
+        .text-indigo-600 { color: #4f46e5; }
+        .text-indigo-800 { color: #3730a3; }
+        .rounded-2xl { border-radius: 1rem; }
+        .rounded-lg { border-radius: 0.5rem; }
+        .rounded { border-radius: 0.25rem; }
+        .rounded-full { border-radius: 9999px; }
+        .shadow-2xl { box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+        .shadow { box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1); }
+        .space-y-4 > * + * { margin-top: 1rem; }
+        .space-y-6 > * + * { margin-top: 1.5rem; }
+        .space-y-3 > * + * { margin-top: 0.75rem; }
+        .space-y-2 > * + * { margin-top: 0.5rem; }
+        .space-x-8 > * + * { margin-left: 2rem; }
+        .space-x-4 > * + * { margin-left: 1rem; }
+        .space-x-2 > * + * { margin-left: 0.5rem; }
+        .gap-3 { gap: 0.75rem; }
+        .gap-4 { gap: 1rem; }
+        .gap-6 { gap: 1.5rem; }
+        .gap-2 { gap: 0.5rem; }
+        .w-full { width: 100%; }
+        .max-w-md { max-width: 28rem; }
+        .max-w-7xl { max-width: 80rem; }
+        .max-w-2xl { max-width: 42rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .font-medium { font-weight: 500; }
+        .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+        .text-xs { font-size: 0.75rem; line-height: 1rem; }
+        .mt-1 { margin-top: 0.25rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-3 { margin-top: 0.75rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mb-1 { margin-bottom: 0.25rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mr-1 { margin-right: 0.25rem; }
+        .mr-2 { margin-right: 0.5rem; }
+        .mr-3 { margin-right: 0.75rem; }
+        .ml-2 { margin-left: 0.5rem; }
+        .ml-auto { margin-left: auto; }
+        .border { border-width: 1px; }
+        .border-2 { border-width: 2px; }
+        .border-b-2 { border-bottom-width: 2px; }
+        .border-transparent { border-color: transparent; }
+        .border-blue-500 { border-color: #3b82f6; }
+        .border-red-300 { border-color: #fca5a5; }
+        .border-green-300 { border-color: #86efac; }
+        .border-orange-200 { border-color: #fed7aa; }
+        .border-gray-200 { border-color: #e5e7eb; }
+        .border-gray-300 { border-color: #d1d5db; }
+        .hover\:bg-blue-600:hover { background-color: #2563eb; }
+        .hover\:bg-blue-700:hover { background-color: #1d4ed8; }
+        .hover\:bg-green-600:hover { background-color: #059669; }
+        .hover\:bg-green-700:hover { background-color: #15803d; }
+        .hover\:bg-orange-600:hover { background-color: #ea580c; }
+        .hover\:bg-gray-50:hover { background-color: #f9fafb; }
+        .hover\:from-blue-600:hover { --tw-gradient-from: #2563eb; }
+        .hover\:to-blue-700:hover { --tw-gradient-to: #1d4ed8; }
+        .hover\:from-green-600:hover { --tw-gradient-from: #059669; }
+        .hover\:to-green-700:hover { --tw-gradient-to: #15803d; }
+        .hover\:bg-opacity-30:hover { background-color: rgb(255 255 255 / 0.3); }
+        .bg-opacity-20 { background-color: rgb(255 255 255 / 0.2); }
+        .bg-opacity-90 { background-color: rgb(255 255 255 / 0.9); }
+        .uppercase { text-transform: uppercase; }
+        .capitalize { text-transform: capitalize; }
+        .divide-y > * + * { border-top-width: 1px; }
+        .divide-gray-200 > * + * { border-color: #e5e7eb; }
+        .overflow-x-auto { overflow-x: auto; }
+        .overflow-y-auto { overflow-y: auto; }
+        .relative { position: relative; }
+        .absolute { position: absolute; }
+        .fixed { position: fixed; }
+        .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+        .top-0 { top: 0; }
+        .right-0 { right: 0; }
+        .-top-1 { top: -0.25rem; }
+        .-right-1 { right: -0.25rem; }
+        .top-4 { top: 1rem; }
+        .right-4 { right: 1rem; }
+        .flex-1 { flex: 1; }
+        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .flex-col { flex-direction: column; }
+        .flex-wrap { flex-wrap: wrap; }
+        .z-10 { z-index: 10; }
+        .z-50 { z-index: 50; }
+        .backdrop-blur { backdrop-filter: blur(8px); }
+        .max-h-96 { max-height: 24rem; }
+        .w-6 { width: 1.5rem; }
+        .h-6 { height: 1.5rem; }
+        .w-5 { width: 1.25rem; }
+        .h-5 { height: 1.25rem; }
+        .w-4 { width: 1rem; }
+        .h-4 { height: 1rem; }
+        .w-8 { width: 2rem; }
+        .h-8 { height: 2rem; }
+        .w-12 { width: 3rem; }
+        .h-12 { height: 3rem; }
+        .w-16 { width: 4rem; }
+        .h-16 { height: 4rem; }
+        .w-20 { width: 5rem; }
+        .h-20 { height: 5rem; }
+        .w-32 { width: 8rem; }
+        .h-32 { height: 8rem; }
+        .cursor-pointer { cursor: pointer; }
+        button { cursor: pointer; }
+        table { border-collapse: collapse; }
+        input, select, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .modal {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+        .modal-content {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            max-width: 32rem;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            background: repeating-linear-gradient(45deg, #000, #000 10px, #fff 10px, #fff 20px);
+            margin: 1rem auto;
+        }
+        @media (min-width: 768px) {
+            .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            .md\:grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+            .md\:grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+        }
+        @media (min-width: 1024px) {
+            .lg\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            .lg\:grid-cols-10 { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        
+        // Icon components using Lucide
+        const Icon = ({ name, className = "w-6 h-6" }) => {
+            useEffect(() => {
+                lucide.createIcons();
+            }, []);
+            return <i data-lucide={name} className={className}></i>;
+        };
+
+        const Building = (props) => <Icon name="building" {...props} />;
+        const Users = (props) => <Icon name="users" {...props} />;
+        const DollarSign = (props) => <Icon name="dollar-sign" {...props} />;
+        const BarChart3 = (props) => <Icon name="bar-chart-3" {...props} />;
+        const Plus = (props) => <Icon name="plus" {...props} />;
+        const Search = (props) => <Icon name="search" {...props} />;
+        const AlertCircle = (props) => <Icon name="alert-circle" {...props} />;
+        const CheckCircle = (props) => <Icon name="check-circle" {...props} />;
+        const Clock = (props) => <Icon name="clock" {...props} />;
+        const LogOut = (props) => <Icon name="log-out" {...props} />;
+        const UserPlus = (props) => <Icon name="user-plus" {...props} />;
+        const X = (props) => <Icon name="x" {...props} />;
+        const Bell = (props) => <Icon name="bell" {...props} />;
+        const TrendingUp = (props) => <Icon name="trending-up" {...props} />;
+        const Home = (props) => <Icon name="home" {...props} />;
+        const Wrench = (props) => <Icon name="wrench" {...props} />;
+        const FileText = (props) => <Icon name="file-text" {...props} />;
+        const Zap = (props) => <Icon name="zap" {...props} />;
+        const Droplet = (props) => <Icon name="droplet" {...props} />;
+        const MessageSquare = (props) => <Icon name="message-square" {...props} />;
+        const Globe = (props) => <Icon name="globe" {...props} />;
+        const Calendar = (props) => <Icon name="calendar" {...props} />;
+        const Shield = (props) => <Icon name="shield" {...props} />;
+        const Download = (props) => <Icon name="download" {...props} />;
+        const Camera = (props) => <Icon name="camera" {...props} />;
+        const Send = (props) => <Icon name="send" {...props} />;
+        const QrCode = (props) => <Icon name="qr-code" {...props} />;
+        const Smartphone = (props) => <Icon name="smartphone" {...props} />;
+        const CreditCard = (props) => <Icon name="credit-card" {...props} />;
+        const Key = (props) => <Icon name="key" {...props} />;
+        const Package = (props) => <Icon name="package" {...props} />;
+        const AlertTriangle = (props) => <Icon name="alert-triangle" {...props} />;
+
+        const StayEaseApp = () => {
+          const [isLoggedIn, setIsLoggedIn] = useState(false);
+          const [userRole, setUserRole] = useState(null);
+          const [currentUser, setCurrentUser] = useState(null);
+          const [activeTab, setActiveTab] = useState('dashboard');
+          const [rooms, setRooms] = useState([]);
+          const [tenants, setTenants] = useState([]);
+          const [payments, setPayments] = useState([]);
+          const [notifications, setNotifications] = useState([]);
+          const [maintenanceRequests, setMaintenanceRequests] = useState([]);
+          const [contracts, setContracts] = useState([]);
+          const [utilities, setUtilities] = useState([]);
+          const [messages, setMessages] = useState([]);
+          const [searchTerm, setSearchTerm] = useState('');
+          const [showNotifications, setShowNotifications] = useState(false);
+          const [showPaymentModal, setShowPaymentModal] = useState(false);
+          const [showMessagesModal, setShowMessagesModal] = useState(false);
+          const [showUtilityModal, setShowUtilityModal] = useState(false);
+          const [showContractModal, setShowContractModal] = useState(false);
+          const [showQRPayment, setShowQRPayment] = useState(false);
+          const [currency, setCurrency] = useState('USD');
+          const [language, setLanguage] = useState('en');
+
+          useEffect(() => {
+            // Generate sample rooms
+            const sampleRooms = [];
+            for (let floor = 1; floor <= 5; floor++) {
+              for (let room = 1; room <= 10; room++) {
+                sampleRooms.push({
+                  id: floor.toString() + room.toString().padStart(2, '0'),
+                  floor,
+                  number: room,
+                  status: Math.random() > 0.3 ? 'occupied' : 'vacant',
+                  rent: 300 + (floor * 20),
+                  deposit: (300 + (floor * 20)) * 2,
+                  type: floor === 1 && room <= 3 ? 'shop' : 'room'
+                });
+              }
+            }
+            
+            // Sample tenants with contracts
+            const sampleTenants = [
+              { 
+                id: 1, 
+                name: 'John Smith', 
+                nameKh: 'ចន ស្មីត',
+                phone: '012-345-678', 
+                email: 'john@email.com', 
+                roomId: '101', 
+                startDate: '2025-01-15', 
+                endDate: '2026-01-15',
+                rent: 320,
+                deposit: 640,
+                idCard: 'PP123456',
+                emergencyContact: '098-765-432'
+              },
+              { 
+                id: 2, 
+                name: 'Sarah Johnson', 
+                nameKh: 'សារ៉ា ចនសុន',
+                phone: '017-456-789', 
+                email: 'sarah@email.com', 
+                roomId: '205', 
+                startDate: '2025-02-01',
+                endDate: '2025-08-01', 
+                rent: 340,
+                deposit: 680,
+                idCard: 'PP234567',
+                emergencyContact: '070-123-456'
+              },
+              { 
+                id: 3, 
+                name: 'Mike Chen', 
+                nameKh: 'មៃក៍ ចេន',
+                phone: '069-234-567', 
+                email: 'mike@email.com', 
+                roomId: '310', 
+                startDate: '2024-12-01',
+                endDate: '2025-12-01', 
+                rent: 360,
+                deposit: 720,
+                idCard: 'PP345678',
+                emergencyContact: '015-987-654'
+              }
+            ];
+            
+            // Sample payments with more detail
+            const samplePayments = [
+              { id: 1, tenantId: 1, type: 'rent', amount: 320, date: '2025-10-01', status: 'paid', method: 'ABA' },
+              { id: 2, tenantId: 2, type: 'rent', amount: 340, date: '2025-10-15', status: 'overdue', method: '' },
+              { id: 3, tenantId: 3, type: 'rent', amount: 360, date: '2025-10-01', status: 'paid', method: 'Wing' },
+              { id: 4, tenantId: 1, type: 'electricity', amount: 45, date: '2025-10-05', status: 'paid', method: 'Cash' },
+              { id: 5, tenantId: 2, type: 'water', amount: 8, date: '2025-10-05', status: 'pending', method: '' },
+              { id: 6, tenantId: 3, type: 'deposit', amount: 720, date: '2024-12-01', status: 'paid', method: 'Bank Transfer' }
+            ];
+
+            // Enhanced notifications
+            const sampleNotifications = [
+              { id: 1, userId: 1, title: 'Payment Overdue', titleKh: 'ការបង់ប្រាក់ហួសកំណត់', message: 'Sarah Johnson - Room 205 payment is overdue', type: 'payment', date: '2025-10-25', read: false },
+              { id: 2, userId: 2, title: 'Payment Reminder', titleKh: 'ការរំលឹកការបង់ប្រាក់', message: 'Your rent payment is due in 3 days', type: 'reminder', date: '2025-10-27', read: false },
+              { id: 3, userId: 1, title: 'Contract Expiring', titleKh: 'កិច្ចសន្យាជិតផុតកំណត់', message: 'Mike Chen - Room 310 contract expires in 30 days', type: 'contract', date: '2025-11-01', read: false }
+            ];
+
+            // Enhanced maintenance requests
+            const sampleMaintenance = [
+              { id: 1, tenantId: 1, roomId: '101', issue: 'Broken AC', description: 'Air conditioner not cooling properly', status: 'pending', priority: 'high', date: '2025-10-20', estimatedCost: 50 },
+              { id: 2, tenantId: 2, roomId: '205', issue: 'Leaking faucet', description: 'Bathroom sink is dripping', status: 'in-progress', priority: 'medium', date: '2025-10-18', estimatedCost: 15 },
+              { id: 3, tenantId: 3, roomId: '310', issue: 'Light not working', description: 'Kitchen light needs replacement', status: 'resolved', priority: 'low', date: '2025-10-15', estimatedCost: 5, actualCost: 5 }
+            ];
+
+            // Sample contracts
+            const sampleContracts = sampleTenants.map(tenant => ({
+              id: tenant.id,
+              tenantId: tenant.id,
+              roomId: tenant.roomId,
+              startDate: tenant.startDate,
+              endDate: tenant.endDate,
+              monthlyRent: tenant.rent,
+              deposit: tenant.deposit,
+              status: new Date(tenant.endDate) > new Date() ? 'active' : 'expiring',
+              documentUrl: '#',
+              lastUpdated: '2025-01-01'
+            }));
+
+            // Sample utilities
+            const sampleUtilities = [
+              { id: 1, roomId: '101', type: 'electricity', previousReading: 1250, currentReading: 1320, rate: 0.65, month: '2025-10', status: 'billed' },
+              { id: 2, roomId: '101', type: 'water', previousReading: 450, currentReading: 465, rate: 0.50, month: '2025-10', status: 'billed' },
+              { id: 3, roomId: '205', type: 'electricity', previousReading: 980, currentReading: 1050, rate: 0.65, month: '2025-10', status: 'pending' },
+              { id: 4, roomId: '205', type: 'water', previousReading: 320, currentReading: 335, rate: 0.50, month: '2025-10', status: 'pending' }
+            ];
+
+            // Sample messages
+            const sampleMessages = [
+              { id: 1, from: 'Manager', to: 'All Tenants', subject: 'Building Maintenance', message: 'Water will be temporarily unavailable on Saturday 10am-12pm for maintenance', date: '2025-10-24', type: 'announcement' },
+              { id: 2, from: 'John Smith', to: 'Manager', subject: 'AC Issue', message: 'The AC in my room is making strange noises', date: '2025-10-23', type: 'inquiry' }
+            ];
+
+            setRooms(sampleRooms);
+            setTenants(sampleTenants);
+            setPayments(samplePayments);
+            setNotifications(sampleNotifications);
+            setMaintenanceRequests(sampleMaintenance);
+            setContracts(sampleContracts);
+            setUtilities(sampleUtilities);
+            setMessages(sampleMessages);
+          }, []);
+
+          const handleLogout = () => {
+            setIsLoggedIn(false);
+            setUserRole(null);
+            setCurrentUser(null);
+            setActiveTab('dashboard');
+          };
+
+          const formatCurrency = (amount) => {
+            if (currency === 'KHR') {
+              return `៛${(amount * 4100).toLocaleString()}`;
+            }
+            return `$${amount}`;
+          };
+
+          const getText = (en, kh) => {
+            return language === 'kh' ? kh : en;
+          };
+
+          const unreadCount = currentUser ? notifications.filter(n => !n.read && n.userId === currentUser.id).length : 0;
+
+          const LoginScreen = () => {
+            const handleManagerLogin = () => {
+              setCurrentUser({ id: 1, username: 'manager', role: 'manager', name: 'Admin Manager' });
+              setUserRole('manager');
+              setIsLoggedIn(true);
+            };
+
+            const handleStayerLogin = () => {
+              setCurrentUser({ id: 2, username: 'john', role: 'stayer', name: 'John Smith', tenantId: 1 });
+              setUserRole('stayer');
+              setIsLoggedIn(true);
+            };
+
+            return (
+              <div className="min-h-screen bg-gradient-to-br from-blue-600 via-blue-700 to-purple-700 flex items-center justify-center p-4">
+                <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
+                  <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-8 text-white text-center">
+                    <Building className="w-16 h-16 mx-auto mb-4" />
+                    <h1 className="text-3xl font-bold">StayEase Pro</h1>
+                    <p className="text-blue-100 mt-2">Building Management System</p>
+                    <p className="text-xs text-blue-200 mt-1">Cambodia Edition 🇰🇭</p>
+                  </div>
+                  <div className="p-8 space-y-4">
+                    <button onClick={handleManagerLogin} className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-4 rounded-lg shadow-lg flex items-center justify-center">
+                      <Users className="w-6 h-6 mr-3" />
+                      Login as Manager
+                    </button>
+                    <button onClick={handleStayerLogin} className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-4 rounded-lg shadow-lg flex items-center justify-center">
+                      <Home className="w-6 h-6 mr-3" />
+                      Login as Stayer
+                    </button>
+                    <div className="text-center text-sm text-gray-600 mt-4">
+                      <p>Demo Mode • No registration needed</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          };
+
+          if (!isLoggedIn) {
+            return <LoginScreen />;
+          }
+
+          // Modals
+          const NotificationsModal = () => (
+            showNotifications && (
+              <div className="modal">
+                <div className="modal-content">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-xl font-bold">{getText('Notifications', 'ការជូនដំណឹង')}</h2>
+                    <button onClick={() => setShowNotifications(false)}>
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+                  <div className="space-y-3 max-h-96 overflow-y-auto">
+                    {notifications.map(notif => (
+                      <div key={notif.id} className={`p-4 rounded-lg ${notif.read ? 'bg-gray-50' : 'bg-blue-50'}`}>
+                        <div className="flex justify-between">
+                          <h3 className="font-semibold">{getText(notif.title, notif.titleKh || notif.title)}</h3>
+                          <span className="text-xs text-gray-500">{notif.date}</span>
+                        </div>
+                        <p className="text-sm text-gray-600 mt-1">{notif.message}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )
+          );
+
+          const MessagesModal = () => (
+            showMessagesModal && (
+              <div className="modal">
+                <div className="modal-content">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-xl font-bold">{getText('Messages', 'សារ')}</h2>
+                    <button onClick={() => setShowMessagesModal(false)}>
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+                  {userRole === 'manager' && (
+                    <button className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg mb-4">
+                      <Send className="w-4 h-4 inline mr-2" />
+                      {getText('Broadcast to All Tenants', 'ផ្ញើសារទៅអ្នកជួលទាំងអស់')}
+                    </button>
+                  )}
+                  <div className="space-y-3 max-h-96 overflow-y-auto">
+                    {messages.map(msg => (
+                      <div key={msg.id} className="p-4 border rounded-lg">
+                        <div className="flex justify-between mb-2">
+                          <span className="font-semibold">{msg.subject}</span>
+                          <span className="text-xs text-gray-500">{msg.date}</span>
+                        </div>
+                        <p className="text-sm text-gray-600">{msg.from} → {msg.to}</p>
+                        <p className="text-sm mt-2">{msg.message}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )
+          );
+
+          const QRPaymentModal = () => (
+            showQRPayment && (
+              <div className="modal">
+                <div className="modal-content text-center">
+                  <h2 className="text-xl font-bold mb-4">{getText('Scan to Pay', 'ស្កេនដើម្បីបង់ប្រាក់')}</h2>
+                  <div className="qr-code"></div>
+                  <p className="text-lg font-semibold mt-4">{formatCurrency(320)}</p>
+                  <p className="text-sm text-gray-600 mt-2">Room 101 - Monthly Rent</p>
+                  <div className="grid grid-cols-3 gap-2 mt-4">
+                    <button className="bg-blue-500 text-white px-3 py-2 rounded text-sm">
+                      <CreditCard className="w-4 h-4 inline mr-1" />
+                      ABA
+                    </button>
+                    <button className="bg-green-500 text-white px-3 py-2 rounded text-sm">
+                      <Smartphone className="w-4 h-4 inline mr-1" />
+                      Wing
+                    </button>
+                    <button className="bg-orange-500 text-white px-3 py-2 rounded text-sm">
+                      <DollarSign className="w-4 h-4 inline mr-1" />
+                      Cash
+                    </button>
+                  </div>
+                  <button onClick={() => setShowQRPayment(false)} className="mt-4 text-gray-600 hover:text-gray-800">
+                    {getText('Close', 'បិទ')}
+                  </button>
+                </div>
+              </div>
+            )
+          );
+
+          return (
+            <div className="min-h-screen bg-gray-100">
+              {/* Header */}
+              <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg">
+                <div className="max-w-7xl mx-auto px-4 py-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <Building className="w-8 h-8 mr-3" />
+                      <div>
+                        <h1 className="text-2xl font-bold">StayEase Pro</h1>
+                        <p className="text-blue-100 text-sm">{getText(userRole === 'manager' ? 'Manager Portal' : 'Stayer Portal', userRole === 'manager' ? 'ផតថល អ្នកគ្រប់គ្រង' : 'ផតថល អ្នកជួល')}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <select 
+                        className="bg-white bg-opacity-20 text-white px-3 py-1 rounded text-sm"
+                        value={language}
+                        onChange={(e) => setLanguage(e.target.value)}
+                      >
+                        <option value="en">🇬🇧 EN</option>
+                        <option value="kh">🇰🇭 ខ្មែរ</option>
+                      </select>
+                      <select 
+                        className="bg-white bg-opacity-20 text-white px-3 py-1 rounded text-sm"
+                        value={currency}
+                        onChange={(e) => setCurrency(e.target.value)}
+                      >
+                        <option value="USD">$ USD</option>
+                        <option value="KHR">៛ KHR</option>
+                      </select>
+                      <button onClick={() => setShowMessagesModal(true)} className="relative bg-white bg-opacity-20 hover:bg-opacity-30 p-2 rounded-lg">
+                        <MessageSquare className="w-5 h-5" />
+                      </button>
+                      <button onClick={() => setShowNotifications(true)} className="relative bg-white bg-opacity-20 hover:bg-opacity-30 p-2 rounded-lg">
+                        <Bell className="w-5 h-5" />
+                        {unreadCount > 0 && (
+                          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{unreadCount}</span>
+                        )}
+                      </button>
+                      <button onClick={handleLogout} className="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg flex items-center">
+                        <LogOut className="w-4 h-4 mr-2" />
+                        {getText('Logout', 'ចេញ')}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Navigation */}
+              {userRole === 'manager' && (
+                <div className="bg-white shadow">
+                  <div className="max-w-7xl mx-auto px-4">
+                    <nav className="flex space-x-8 overflow-x-auto">
+                      <button onClick={() => setActiveTab('dashboard')} className={'flex items-center px-3 py-4 border-b-2 font-medium text-sm whitespace-nowrap ' + (activeTab === 'dashboard' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500')}>
+                        <BarChart3 className="w-4 h-4 mr-2" />{getText('Dashboard', 'ផ្ទាំងគ្រប់គ្រង')}
+                      </button>
+                      <button onClick={() => setActiveTab('tenants')} className={'flex items-center px-3 py-4 border-b-2 font-medium text-sm whitespace-nowrap ' + (activeTab === 'tenants' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500')}>
+                        <Users className="w-4 h-4 mr-2" />{getText('Tenants', 'អ្នកជួល')}
+                      </button>
+                      <button onClick={() => setActiveTab('rooms')} className={'flex items-center px-3 py-4 border-b-2 font-medium text-sm whitespace-nowrap ' + (activeTab === 'rooms' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500')}>
+                        <Building className="w-4 h-4 mr-2" />{getText('Rooms', 'បន្ទប់')}
+                      </button>
+                      <button onClick={() => setActiveTab('contracts')} className={'flex items-center px-3 py-4 border-b-2 font-medium text-sm whitespace-nowrap ' + (activeTab === 'contracts' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500')}>
+                        <FileText className="w-4 h-4 mr-2" />{getText('Contracts', 'កិច្ចសន្យា')}
+                      </button>
+                      <button onClick={() => setActiveTab('payments')} className={'flex items-center px-3 py-4 border-b-2 font-medium text-sm whitespace-nowrap ' + (activeTab === 'payments' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500')}>
+                        <DollarSign className="w-4 h-4 mr-2" />{getText('Payments', 'ការបង់ប្រាក់')}
+                      </button>
+                      <button onClick={() => setActiveTab('utilities')} className={'flex items-center px-3 py-4 border-b-2 font-medium text-sm whitespace-nowrap ' + (activeTab === 'utilities' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500')}>
+                        <Zap className="w-4 h-4 mr-2" />{getText('Utilities', 'ទឹកភ្លើង')}
+                      </button>
+                      <button onClick={() => setActiveTab('maintenance')} className={'flex items-center px-3 py-4 border-b-2 font-medium text-sm whitespace-nowrap ' + (activeTab === 'maintenance' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500')}>
+                        <Wrench className="w-4 h-4 mr-2" />{getText('Maintenance', 'ការថែទាំ')}
+                      </button>
+                      <button onClick={() => setActiveTab('reports')} className={'flex items-center px-3 py-4 border-b-2 font-medium text-sm whitespace-nowrap ' + (activeTab === 'reports' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500')}>
+                        <TrendingUp className="w-4 h-4 mr-2" />{getText('Reports', 'របាយការណ៍')}
+                      </button>
+                    </nav>
+                  </div>
+                </div>
+              )}
+
+              {userRole === 'stayer' && (
+                <div className="bg-white shadow">
+                  <div className="max-w-7xl mx-auto px-4">
+                    <nav className="flex space-x-8">
+                      <button onClick={() => setActiveTab('dashboard')} className={'flex items-center px-3 py-4 border-b-2 font-medium text-sm ' + (activeTab === 'dashboard' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500')}>
+                        <BarChart3 className="w-4 h-4 mr-2" />{getText('Dashboard', 'ផ្ទាំងគ្រប់គ្រង')}
+                      </button>
+                      <button onClick={() => setActiveTab('payments')} className={'flex items-center px-3 py-4 border-b-2 font-medium text-sm ' + (activeTab === 'payments' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500')}>
+                        <DollarSign className="w-4 h-4 mr-2" />{getText('Payments', 'ការបង់ប្រាក់')}
+                      </button>
+                      <button onClick={() => setActiveTab('maintenance')} className={'flex items-center px-3 py-4 border-b-2 font-medium text-sm ' + (activeTab === 'maintenance' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500')}>
+                        <Wrench className="w-4 h-4 mr-2" />{getText('Services', 'សេវាកម្ម')}
+                      </button>
+                      <button onClick={() => setActiveTab('documents')} className={'flex items-center px-3 py-4 border-b-2 font-medium text-sm ' + (activeTab === 'documents' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500')}>
+                        <FileText className="w-4 h-4 mr-2" />{getText('Documents', 'ឯកសារ')}
+                      </button>
+                    </nav>
+                  </div>
+                </div>
+              )}
+
+              {/* Content */}
+              <div className="max-w-7xl mx-auto px-4 py-8">
+                {/* Manager Dashboard */}
+                {userRole === 'manager' && activeTab === 'dashboard' && (
+                  <div className="space-y-6">
+                    <h2 className="text-2xl font-bold text-gray-800">{getText('Manager Dashboard', 'ផ្ទាំងគ្រប់គ្រង')}</h2>
+                    
+                    {/* Stats Cards */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                      <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg p-6 text-white shadow-lg">
+                        <p className="text-blue-100 text-sm">{getText('Total Rooms', 'បន្ទប់សរុប')}</p>
+                        <p className="text-3xl font-bold mt-1">{rooms.length}</p>
+                      </div>
+                      <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-lg p-6 text-white shadow-lg">
+                        <p className="text-green-100 text-sm">{getText('Occupied', 'កំពុងជួល')}</p>
+                        <p className="text-3xl font-bold mt-1">{rooms.filter(r => r.status === 'occupied').length}</p>
+                      </div>
+                      <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg p-6 text-white shadow-lg">
+                        <p className="text-orange-100 text-sm">{getText('Vacant', 'ទំនេរ')}</p>
+                        <p className="text-3xl font-bold mt-1">{rooms.filter(r => r.status === 'vacant').length}</p>
+                      </div>
+                      <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg p-6 text-white shadow-lg">
+                        <p className="text-purple-100 text-sm">{getText('Monthly Income', 'ចំណូលប្រចាំខែ')}</p>
+                        <p className="text-2xl font-bold mt-1">{formatCurrency(payments.filter(p => p.status === 'paid' && p.type === 'rent').reduce((s, p) => s + p.amount, 0))}</p>
+                      </div>
+                      <div className="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-lg p-6 text-white shadow-lg">
+                        <p className="text-yellow-100 text-sm">{getText('Pending', 'រង់ចាំ')}</p>
+                        <p className="text-2xl font-bold mt-1">{formatCurrency(payments.filter(p => p.status !== 'paid').reduce((s, p) => s + p.amount, 0))}</p>
+                      </div>
+                      <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg p-6 text-white shadow-lg">
+                        <p className="text-indigo-100 text-sm">{getText('Total Deposits', 'ប្រាក់កក់សរុប')}</p>
+                        <p className="text-2xl font-bold mt-1">{formatCurrency(tenants.reduce((s, t) => s + t.deposit, 0))}</p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      {/* Pending Payments */}
+                      <div className="bg-white rounded-lg shadow p-6">
+                        <h3 className="text-lg font-semibold mb-4 flex items-center">
+                          <Clock className="w-5 h-5 mr-2 text-orange-500" />
+                          {getText('Pending Payments', 'ការបង់ប្រាក់រង់ចាំ')}
+                        </h3>
+                        <div className="space-y-3">
+                          {payments.filter(p => p.status === 'overdue' || p.status === 'pending').map(payment => {
+                            const tenant = tenants.find(t => t.id === payment.tenantId);
+                            return (
+                              <div key={payment.id} className={'p-3 rounded-lg ' + (payment.status === 'overdue' ? 'bg-red-50' : 'bg-orange-50')}>
+                                <div className="flex justify-between">
+                                  <div>
+                                    <p className="font-medium text-gray-800">{tenant?.name}</p>
+                                    <p className="text-sm text-gray-600">Room {tenant?.roomId} • {payment.type}</p>
+                                  </div>
+                                  <div className="text-right">
+                                    <p className={'font-bold ' + (payment.status === 'overdue' ? 'text-red-600' : 'text-orange-600')}>{formatCurrency(payment.amount)}</p>
+                                    <p className="text-xs text-gray-500">{payment.status}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Expiring Contracts */}
+                      <div className="bg-white rounded-lg shadow p-6">
+                        <h3 className="text-lg font-semibold mb-4 flex items-center">
+                          <AlertTriangle className="w-5 h-5 mr-2 text-yellow-500" />
+                          {getText('Expiring Contracts', 'កិច្ចសន្យាជិតផុតកំណត់')}
+                        </h3>
+                        <div className="space-y-3">
+                          {tenants.filter(t => {
+                            const daysUntilExpiry = Math.floor((new Date(t.endDate) - new Date()) / (1000 * 60 * 60 * 24));
+                            return daysUntilExpiry <= 60;
+                          }).map(tenant => {
+                            const daysUntilExpiry = Math.floor((new Date(tenant.endDate) - new Date()) / (1000 * 60 * 60 * 24));
+                            return (
+                              <div key={tenant.id} className="p-3 bg-yellow-50 rounded-lg">
+                                <div className="flex justify-between">
+                                  <div>
+                                    <p className="font-medium text-gray-800">{tenant.name}</p>
+                                    <p className="text-sm text-gray-600">Room {tenant.roomId}</p>
+                                  </div>
+                                  <div className="text-right">
+                                    <p className="text-sm font-semibold text-yellow-600">{daysUntilExpiry} days</p>
+                                    <p className="text-xs text-gray-500">{tenant.endDate}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Contracts Tab */}
+                {userRole === 'manager' && activeTab === 'contracts' && (
+                  <div className="space-y-6">
+                    <div className="flex justify-between items-center">
+                      <h2 className="text-2xl font-bold text-gray-800">{getText('Contracts & Deposits', 'កិច្ចសន្យា និងប្រាក់កក់')}</h2>
+                      <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center">
+                        <Plus className="w-4 h-4 mr-2" />
+                        {getText('New Contract', 'កិច្ចសន្យាថ្មី')}
+                      </button>
+                    </div>
+
+                    <div className="bg-white rounded-lg shadow overflow-x-auto">
+                      <table className="w-full">
+                        <thead className="bg-gray-50">
+                          <tr>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Tenant', 'អ្នកជួល')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Room', 'បន្ទប់')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Period', 'រយៈពេល')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Rent', 'ថ្លៃជួល')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Deposit', 'ប្រាក់កក់')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Status', 'ស្ថានភាព')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Actions', 'សកម្មភាព')}</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-200">
+                          {tenants.map(tenant => {
+                            const daysUntilExpiry = Math.floor((new Date(tenant.endDate) - new Date()) / (1000 * 60 * 60 * 24));
+                            return (
+                              <tr key={tenant.id} className="hover:bg-gray-50">
+                                <td className="px-6 py-4">
+                                  <div>
+                                    <p className="text-gray-900">{tenant.name}</p>
+                                    <p className="text-xs text-gray-500">{tenant.phone}</p>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4">
+                                  <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">{tenant.roomId}</span>
+                                </td>
+                                <td className="px-6 py-4">
+                                  <div className="text-sm">
+                                    <p className="text-gray-900">{tenant.startDate}</p>
+                                    <p className="text-gray-500">to {tenant.endDate}</p>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 font-semibold">{formatCurrency(tenant.rent)}</td>
+                                <td className="px-6 py-4 font-semibold">{formatCurrency(tenant.deposit)}</td>
+                                <td className="px-6 py-4">
+                                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                                    daysUntilExpiry > 60 ? 'bg-green-100 text-green-800' :
+                                    daysUntilExpiry > 30 ? 'bg-yellow-100 text-yellow-800' :
+                                    'bg-red-100 text-red-800'
+                                  }`}>
+                                    {daysUntilExpiry > 60 ? 'Active' : `${daysUntilExpiry} days left`}
+                                  </span>
+                                </td>
+                                <td className="px-6 py-4">
+                                  <button className="text-blue-600 hover:text-blue-800 text-sm mr-2">
+                                    <FileText className="w-4 h-4 inline" />
+                                  </button>
+                                  <button className="text-green-600 hover:text-green-800 text-sm">
+                                    <Download className="w-4 h-4 inline" />
+                                  </button>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+
+                {/* Utilities Tab */}
+                {userRole === 'manager' && activeTab === 'utilities' && (
+                  <div className="space-y-6">
+                    <div className="flex justify-between items-center">
+                      <h2 className="text-2xl font-bold text-gray-800">{getText('Utilities Management', 'គ្រប់គ្រងទឹកភ្លើង')}</h2>
+                      <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center">
+                        <Camera className="w-4 h-4 mr-2" />
+                        {getText('Record Meters', 'ថតកុងទ័រ')}
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {[101, 205].map(roomId => {
+                        const roomUtilities = utilities.filter(u => u.roomId === roomId.toString());
+                        const tenant = tenants.find(t => t.roomId === roomId.toString());
+                        
+                        return (
+                          <div key={roomId} className="bg-white rounded-lg shadow p-6">
+                            <div className="flex justify-between items-start mb-4">
+                              <div>
+                                <h3 className="text-lg font-semibold">Room {roomId}</h3>
+                                <p className="text-sm text-gray-600">{tenant?.name}</p>
+                              </div>
+                              <span className="px-2 py-1 bg-orange-100 text-orange-800 rounded text-xs">October 2025</span>
+                            </div>
+                            
+                            {roomUtilities.map(util => {
+                              const usage = util.currentReading - util.previousReading;
+                              const cost = usage * util.rate;
+                              return (
+                                <div key={util.id} className="border-t pt-3 mt-3">
+                                  <div className="flex items-center justify-between mb-2">
+                                    <div className="flex items-center">
+                                      {util.type === 'electricity' ? <Zap className="w-5 h-5 text-yellow-500 mr-2" /> : <Droplet className="w-5 h-5 text-blue-500 mr-2" />}
+                                      <span className="font-medium capitalize">{util.type}</span>
+                                    </div>
+                                    <span className={`px-2 py-1 rounded text-xs font-medium ${
+                                      util.status === 'billed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                                    }`}>
+                                      {util.status}
+                                    </span>
+                                  </div>
+                                  <div className="grid grid-cols-2 gap-2 text-sm">
+                                    <div>
+                                      <p className="text-gray-500">Previous</p>
+                                      <p className="font-semibold">{util.previousReading}</p>
+                                    </div>
+                                    <div>
+                                      <p className="text-gray-500">Current</p>
+                                      <p className="font-semibold">{util.currentReading}</p>
+                                    </div>
+                                    <div>
+                                      <p className="text-gray-500">Usage</p>
+                                      <p className="font-semibold">{usage} {util.type === 'electricity' ? 'kWh' : 'm³'}</p>
+                                    </div>
+                                    <div>
+                                      <p className="text-gray-500">Amount</p>
+                                      <p className="font-semibold text-green-600">{formatCurrency(cost)}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Reports Tab */}
+                {userRole === 'manager' && activeTab === 'reports' && (
+                  <div className="space-y-6">
+                    <h2 className="text-2xl font-bold text-gray-800">{getText('Financial Reports', 'របាយការណ៍ហិរញ្ញវត្ថុ')}</h2>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                      <div className="bg-white rounded-lg shadow p-6">
+                        <h3 className="text-sm font-medium text-gray-600 mb-2">{getText('Total Revenue (Oct)', 'ចំណូលសរុប (តុលា)')}</h3>
+                        <p className="text-2xl font-bold text-green-600">{formatCurrency(1020)}</p>
+                        <p className="text-xs text-gray-500 mt-2">+15% from last month</p>
+                      </div>
+                      <div className="bg-white rounded-lg shadow p-6">
+                        <h3 className="text-sm font-medium text-gray-600 mb-2">{getText('Maintenance Costs', 'ចំណាយថែទាំ')}</h3>
+                        <p className="text-2xl font-bold text-red-600">{formatCurrency(70)}</p>
+                        <p className="text-xs text-gray-500 mt-2">3 requests resolved</p>
+                      </div>
+                      <div className="bg-white rounded-lg shadow p-6">
+                        <h3 className="text-sm font-medium text-gray-600 mb-2">{getText('Occupancy Rate', 'អត្រាការជួល')}</h3>
+                        <p className="text-2xl font-bold text-blue-600">{Math.floor(rooms.filter(r => r.status === 'occupied').length / rooms.length * 100)}%</p>
+                        <p className="text-xs text-gray-500 mt-2">{rooms.filter(r => r.status === 'occupied').length}/{rooms.length} rooms</p>
+                      </div>
+                      <div className="bg-white rounded-lg shadow p-6">
+                        <h3 className="text-sm font-medium text-gray-600 mb-2">{getText('Net Profit', 'ប្រាក់ចំណេញសុទ្ធ')}</h3>
+                        <p className="text-2xl font-bold text-purple-600">{formatCurrency(950)}</p>
+                        <p className="text-xs text-gray-500 mt-2">After all expenses</p>
+                      </div>
+                    </div>
+
+                    <div className="bg-white rounded-lg shadow p-6">
+                      <h3 className="text-lg font-semibold mb-4">{getText('Quick Actions', 'សកម្មភាពរហ័ស')}</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <button className="border-2 border-gray-300 rounded-lg p-4 hover:border-blue-500 hover:bg-blue-50">
+                          <Download className="w-6 h-6 text-blue-600 mb-2" />
+                          <p className="text-sm font-medium">{getText('Export Monthly Report', 'នាំចេញរបាយការណ៍ប្រចាំខែ')}</p>
+                        </button>
+                        <button className="border-2 border-gray-300 rounded-lg p-4 hover:border-green-500 hover:bg-green-50">
+                          <FileText className="w-6 h-6 text-green-600 mb-2" />
+                          <p className="text-sm font-medium">{getText('Generate Tax Report', 'បង្កើតរបាយការណ៍ពន្ធ')}</p>
+                        </button>
+                        <button className="border-2 border-gray-300 rounded-lg p-4 hover:border-purple-500 hover:bg-purple-50">
+                          <TrendingUp className="w-6 h-6 text-purple-600 mb-2" />
+                          <p className="text-sm font-medium">{getText('Yearly Analytics', 'វិភាគប្រចាំឆ្នាំ')}</p>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Existing tabs remain the same */}
+                {userRole === 'manager' && activeTab === 'tenants' && (
+                  <div className="space-y-6">
+                    <div className="flex justify-between items-center">
+                      <h2 className="text-2xl font-bold text-gray-800">{getText('Tenants', 'អ្នកជួល')}</h2>
+                      <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center">
+                        <Plus className="w-4 h-4 mr-2" />
+                        {getText('Add Tenant', 'បន្ថែមអ្នកជួល')}
+                      </button>
+                    </div>
+
+                    <div className="bg-white rounded-lg shadow overflow-x-auto">
+                      <table className="w-full">
+                        <thead className="bg-gray-50">
+                          <tr>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Name', 'ឈ្មោះ')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Room', 'បន្ទប់')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Phone', 'ទូរស័ព្ទ')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('ID Card', 'អត្តសញ្ញាណប័ណ្ណ')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Rent', 'ថ្លៃជួល')}</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-200">
+                          {tenants.map(tenant => (
+                            <tr key={tenant.id} className="hover:bg-gray-50">
+                              <td className="px-6 py-4">
+                                <div>
+                                  <p className="text-gray-900">{tenant.name}</p>
+                                  <p className="text-xs text-gray-500">{tenant.nameKh}</p>
+                                </div>
+                              </td>
+                              <td className="px-6 py-4"><span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">{tenant.roomId}</span></td>
+                              <td className="px-6 py-4 text-gray-600">{tenant.phone}</td>
+                              <td className="px-6 py-4 text-gray-600">{tenant.idCard}</td>
+                              <td className="px-6 py-4 font-semibold text-gray-900">{formatCurrency(tenant.rent)}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+
+                {userRole === 'manager' && activeTab === 'rooms' && (
+                  <div className="space-y-6">
+                    <h2 className="text-2xl font-bold text-gray-800">{getText('Room Management', 'គ្រប់គ្រងបន្ទប់')}</h2>
+                    
+                    {[1, 2, 3, 4, 5].map(floor => {
+                      const floorRooms = rooms.filter(r => r.floor === floor);
+                      return (
+                        <div key={floor} className="bg-white rounded-lg shadow p-6">
+                          <h3 className="text-lg font-semibold mb-4">
+                            {getText(`Floor ${floor}`, `ជាន់ទី ${floor}`)}
+                            {floor === 1 && <span className="ml-2 text-sm text-gray-500">(Includes 3 shops)</span>}
+                          </h3>
+                          <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-10 gap-3">
+                            {floorRooms.map(room => (
+                              <div key={room.id} className={'p-3 rounded-lg border-2 text-center cursor-pointer hover:shadow-lg transition-shadow ' + (room.status === 'occupied' ? 'bg-red-50 border-red-300' : 'bg-green-50 border-green-300')}>
+                                <div className="font-bold text-lg">{room.id}</div>
+                                {room.type === 'shop' && <Package className="w-4 h-4 mx-auto text-purple-600" />}
+                                <div className={'text-xs font-semibold mt-1 ' + (room.status === 'occupied' ? 'text-red-600' : 'text-green-600')}>
+                                  {room.status === 'occupied' ? '🔴' : '🟢'}
+                                </div>
+                                <div className="text-xs text-gray-600 mt-1">{formatCurrency(room.rent)}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {userRole === 'manager' && activeTab === 'payments' && (
+                  <div className="space-y-6">
+                    <div className="flex justify-between items-center">
+                      <h2 className="text-2xl font-bold text-gray-800">{getText('Payment Management', 'គ្រប់គ្រងការបង់ប្រាក់')}</h2>
+                      <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center">
+                        <Plus className="w-4 h-4 mr-2" />
+                        {getText('Record Payment', 'កត់ត្រាការបង់ប្រាក់')}
+                      </button>
+                    </div>
+
+                    <div className="bg-white rounded-lg shadow overflow-x-auto">
+                      <table className="w-full">
+                        <thead className="bg-gray-50">
+                          <tr>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Tenant', 'អ្នកជួល')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Type', 'ប្រភេទ')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Amount', 'ចំនួនទឹកប្រាក់')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Method', 'វិធីបង់')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Date', 'កាលបរិច្ឆេទ')}</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Status', 'ស្ថានភាព')}</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-200">
+                          {payments.map(payment => {
+                            const tenant = tenants.find(t => t.id === payment.tenantId);
+                            return (
+                              <tr key={payment.id} className="hover:bg-gray-50">
+                                <td className="px-6 py-4 text-gray-900">{tenant?.name}</td>
+                                <td className="px-6 py-4 capitalize text-gray-600">{payment.type}</td>
+                                <td className="px-6 py-4 font-bold text-gray-900">{formatCurrency(payment.amount)}</td>
+                                <td className="px-6 py-4">
+                                  {payment.method && (
+                                    <span className="px-2 py-1 bg-gray-100 rounded text-xs">
+                                      {payment.method}
+                                    </span>
+                                  )}
+                                </td>
+                                <td className="px-6 py-4 text-gray-600">{payment.date}</td>
+                                <td className="px-6 py-4">
+                                  <span className={'px-3 py-1 rounded-full text-sm font-medium ' + (
+                                    payment.status === 'paid' ? 'bg-green-100 text-green-800' : 
+                                    payment.status === 'overdue' ? 'bg-red-100 text-red-800' :
+                                    'bg-orange-100 text-orange-800'
+                                  )}>
+                                    {payment.status}
+                                  </span>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+
+                {userRole === 'manager' && activeTab === 'maintenance' && (
+                  <div className="space-y-6">
+                    <h2 className="text-2xl font-bold text-gray-800">{getText('Maintenance Requests', 'សំណើរថែទាំ')}</h2>
+                    <div className="grid grid-cols-1 gap-4">
+                      {maintenanceRequests.map(request => {
+                        const tenant = tenants.find(t => t.id === request.tenantId);
+                        return (
+                          <div key={request.id} className="bg-white rounded-lg shadow p-6">
+                            <div className="flex justify-between items-start mb-4">
+                              <div>
+                                <h3 className="text-lg font-semibold text-gray-800">{request.issue}</h3>
+                                <p className="text-sm text-gray-600">Room {request.roomId} • {tenant?.name} • {request.date}</p>
+                              </div>
+                              <div className="flex gap-2">
+                                <span className={'px-3 py-1 rounded-full text-xs font-semibold ' + (
+                                  request.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                                  request.status === 'in-progress' ? 'bg-blue-100 text-blue-800' :
+                                  'bg-green-100 text-green-800'
+                                )}>
+                                  {request.status}
+                                </span>
+                                <span className={'px-3 py-1 rounded-full text-xs font-semibold ' + (
+                                  request.priority === 'urgent' ? 'bg-red-100 text-red-800' :
+                                  request.priority === 'high' ? 'bg-orange-100 text-orange-800' :
+                                  request.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
+                                  'bg-gray-100 text-gray-800'
+                                )}>
+                                  {request.priority}
+                                </span>
+                              </div>
+                            </div>
+                            <p className="text-gray-700">{request.description}</p>
+                            <div className="mt-4 flex justify-between items-center">
+                              <p className="text-sm text-gray-600">
+                                Est. Cost: <span className="font-semibold">{formatCurrency(request.estimatedCost)}</span>
+                              </p>
+                              {request.status === 'pending' && (
+                                <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded text-sm">
+                                  {getText('Start Work', 'ចាប់ផ្តើមការងារ')}
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Stayer Dashboard */}
+                {userRole === 'stayer' && activeTab === 'dashboard' && (
+                  <div className="space-y-6">
+                    <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-6 text-white shadow-lg">
+                      <h2 className="text-2xl font-bold mb-2">{getText(`Welcome, ${currentUser.name}!`, `សូមស្វាគមន៍ ${currentUser.name}!`)}</h2>
+                      <p className="text-blue-100">Room {tenants.find(t => t.id === currentUser.tenantId)?.roomId}</p>
+                      <p className="text-sm text-blue-200 mt-2">Contract ends: {tenants.find(t => t.id === currentUser.tenantId)?.endDate}</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                      <div className="bg-white rounded-lg p-6 shadow">
+                        <p className="text-gray-600 text-sm">{getText('Monthly Rent', 'ថ្លៃជួលប្រចាំខែ')}</p>
+                        <p className="text-3xl font-bold text-gray-800 mt-1">{formatCurrency(tenants.find(t => t.id === currentUser.tenantId)?.rent)}</p>
+                      </div>
+                      <div className="bg-white rounded-lg p-6 shadow">
+                        <p className="text-gray-600 text-sm">{getText('Deposit', 'ប្រាក់កក់')}</p>
+                        <p className="text-3xl font-bold text-green-600 mt-1">{formatCurrency(tenants.find(t => t.id === currentUser.tenantId)?.deposit)}</p>
+                      </div>
+                      <div className="bg-white rounded-lg p-6 shadow">
+                        <p className="text-gray-600 text-sm">{getText('Pending', 'រង់ចាំបង់')}</p>
+                        <p className="text-3xl font-bold text-orange-600 mt-1">{formatCurrency(payments.filter(p => p.tenantId === currentUser.tenantId && p.status !== 'paid').reduce((s, p) => s + p.amount, 0))}</p>
+                      </div>
+                      <div className="bg-white rounded-lg p-6 shadow">
+                        <p className="text-gray-600 text-sm">{getText('Total Paid', 'បានបង់សរុប')}</p>
+                        <p className="text-3xl font-bold text-green-600 mt-1">{formatCurrency(payments.filter(p => p.tenantId === currentUser.tenantId && p.status === 'paid').reduce((s, p) => s + p.amount, 0))}</p>
+                      </div>
+                    </div>
+
+                    {/* Quick Actions */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <button 
+                        onClick={() => setShowQRPayment(true)}
+                        className="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow"
+                      >
+                        <QrCode className="w-8 h-8 mb-2" />
+                        <p className="font-semibold">{getText('Quick Pay', 'បង់រហ័ស')}</p>
+                        <p className="text-sm text-green-100">Scan QR to pay rent</p>
+                      </button>
+                      
+                      <button className="bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow">
+                        <Wrench className="w-8 h-8 mb-2" />
+                        <p className="font-semibold">{getText('Request Service', 'ស្នើសុំសេវាកម្ម')}</p>
+                        <p className="text-sm text-orange-100">Maintenance & repairs</p>
+                      </button>
+                      
+                      <button className="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow">
+                        <MessageSquare className="w-8 h-8 mb-2" />
+                        <p className="font-semibold">{getText('Message Manager', 'ផ្ញើសារទៅអ្នកគ្រប់គ្រង')}</p>
+                        <p className="text-sm text-purple-100">Direct communication</p>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Stayer Payments Tab */}
+                {userRole === 'stayer' && activeTab === 'payments' && (
+                  <div className="space-y-6">
+                    <h2 className="text-2xl font-bold text-gray-800">{getText('My Payments', 'ការបង់ប្រាក់របស់ខ្ញុំ')}</h2>
+                    
+                    {/* Payment Methods */}
+                    <div className="bg-white rounded-lg shadow p-6">
+                      <h3 className="text-lg font-semibold mb-4">{getText('Payment Methods', 'វិធីបង់ប្រាក់')}</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <button onClick={() => setShowQRPayment(true)} className="border rounded-lg p-4 hover:border-blue-500 hover:bg-blue-50">
+                          <QrCode className="w-8 h-8 text-blue-600 mx-auto mb-2" />
+                          <p className="font-medium">{getText('QR Code', 'កូដ QR')}</p>
+                          <p className="text-xs text-gray-500">Scan and pay</p>
+                        </button>
+                        <button className="border rounded-lg p-4 hover:border-green-500 hover:bg-green-50">
+                          <Smartphone className="w-8 h-8 text-green-600 mx-auto mb-2" />
+                          <p className="font-medium">ABA / Wing</p>
+                          <p className="text-xs text-gray-500">Mobile banking</p>
+                        </button>
+                        <button className="border rounded-lg p-4 hover:border-orange-500 hover:bg-orange-50">
+                          <DollarSign className="w-8 h-8 text-orange-600 mx-auto mb-2" />
+                          <p className="font-medium">{getText('Cash', 'សាច់ប្រាក់')}</p>
+                          <p className="text-xs text-gray-500">Pay at office</p>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Payment History */}
+                    <div className="bg-white rounded-lg shadow p-6">
+                      <h3 className="text-lg font-semibold mb-4">{getText('Payment History', 'ប្រវត្តិការបង់ប្រាក់')}</h3>
+                      <div className="overflow-x-auto">
+                        <table className="w-full">
+                          <thead className="bg-gray-50">
+                            <tr>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Type', 'ប្រភេទ')}</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Amount', 'ចំនួន')}</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Method', 'វិធី')}</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Date', 'កាលបរិច្ឆេទ')}</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Status', 'ស្ថានភាព')}</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">{getText('Receipt', 'បង្កាន់ដៃ')}</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-200">
+                            {payments.filter(p => p.tenantId === currentUser.tenantId).map(payment => (
+                              <tr key={payment.id}>
+                                <td className="px-4 py-3 capitalize text-gray-900">{payment.type}</td>
+                                <td className="px-4 py-3 font-bold text-gray-900">{formatCurrency(payment.amount)}</td>
+                                <td className="px-4 py-3 text-gray-600">{payment.method || '-'}</td>
+                                <td className="px-4 py-3 text-gray-600">{payment.date}</td>
+                                <td className="px-4 py-3">
+                                  <span className={'px-3 py-1 rounded-full text-sm font-medium ' + (payment.status === 'paid' ? 'bg-green-100 text-green-800' : 'bg-orange-100 text-orange-800')}>
+                                    {payment.status}
+                                  </span>
+                                </td>
+                                <td className="px-4 py-3">
+                                  {payment.status === 'paid' && (
+                                    <button className="text-blue-600 hover:text-blue-800">
+                                      <Download className="w-4 h-4" />
+                                    </button>
+                                  )}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Stayer Services Tab */}
+                {userRole === 'stayer' && activeTab === 'maintenance' && (
+                  <div className="space-y-6">
+                    <h2 className="text-2xl font-bold text-gray-800">{getText('Services & Maintenance', 'សេវាកម្ម និងការថែទាំ')}</h2>
+
+                    {/* Service Request Options */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <button className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow">
+                        <Wrench className="w-8 h-8 text-orange-500 mb-2" />
+                        <h3 className="font-semibold">{getText('Maintenance', 'ការជួសជុល')}</h3>
+                        <p className="text-sm text-gray-600 mt-1">Report issues</p>
+                      </button>
+                      <button className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow">
+                        <Package className="w-8 h-8 text-blue-500 mb-2" />
+                        <h3 className="font-semibold">{getText('Cleaning', 'សម្អាត')}</h3>
+                        <p className="text-sm text-gray-600 mt-1">Request service</p>
+                      </button>
+                      <button className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow">
+                        <Key className="w-8 h-8 text-green-500 mb-2" />
+                        <h3 className="font-semibold">{getText('Extra Key', 'សោបន្ថែម')}</h3>
+                        <p className="text-sm text-gray-600 mt-1">Request duplicate</p>
+                      </button>
+                    </div>
+
+                    {/* My Requests */}
+                    <div className="bg-white rounded-lg shadow p-6">
+                      <div className="flex justify-between items-center mb-4">
+                        <h3 className="text-lg font-semibold">{getText('My Requests', 'សំណើររបស់ខ្ញុំ')}</h3>
+                        <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg flex items-center">
+                          <Plus className="w-4 h-4 mr-2" />
+                          {getText('New Request', 'សំណើថ្មី')}
+                        </button>
+                      </div>
+                      
+                      <div className="grid grid-cols-1 gap-4">
+                        {maintenanceRequests.filter(r => r.tenantId === currentUser.tenantId).map(request => (
+                          <div key={request.id} className="border rounded-lg p-4">
+                            <div className="flex justify-between items-start mb-2">
+                              <div>
+                                <h4 className="font-semibold text-gray-800">{request.issue}</h4>
+                                <p className="text-sm text-gray-600">{request.date}</p>
+                              </div>
+                              <span className={'px-3 py-1 rounded-full text-xs font-semibold ' + (
+                                request.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                                request.status === 'in-progress' ? 'bg-blue-100 text-blue-800' :
+                                'bg-green-100 text-green-800'
+                              )}>
+                                {request.status}
+                              </span>
+                            </div>
+                            <p className="text-sm text-gray-700">{request.description}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Stayer Documents Tab */}
+                {userRole === 'stayer' && activeTab === 'documents' && (
+                  <div className="space-y-6">
+                    <h2 className="text-2xl font-bold text-gray-800">{getText('My Documents', 'ឯកសាររបស់ខ្ញុំ')}</h2>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                      <div className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow cursor-pointer">
+                        <FileText className="w-8 h-8 text-blue-500 mb-2" />
+                        <h3 className="font-semibold">{getText('Rental Contract', 'កិច្ចសន្យាជួល')}</h3>
+                        <p className="text-sm text-gray-600 mt-1">Valid until {tenants.find(t => t.id === currentUser.tenantId)?.endDate}</p>
+                        <button className="text-blue-600 text-sm mt-2 hover:underline">
+                          <Download className="w-4 h-4 inline mr-1" />
+                          {getText('Download', 'ទាញយក')}
+                        </button>
+                      </div>
+                      
+                      <div className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow cursor-pointer">
+                        <Shield className="w-8 h-8 text-green-500 mb-2" />
+                        <h3 className="font-semibold">{getText('House Rules', 'ច្បាប់ផ្ទះ')}</h3>
+                        <p className="text-sm text-gray-600 mt-1">Building regulations</p>
+                        <button className="text-blue-600 text-sm mt-2 hover:underline">
+                          <Download className="w-4 h-4 inline mr-1" />
+                          {getText('Download', 'ទាញយក')}
+                        </button>
+                      </div>
+                      
+                      <div className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow cursor-pointer">
+                        <DollarSign className="w-8 h-8 text-purple-500 mb-2" />
+                        <h3 className="font-semibold">{getText('Payment History', 'ប្រវត្តិបង់ប្រាក់')}</h3>
+                        <p className="text-sm text-gray-600 mt-1">All transactions</p>
+                        <button className="text-blue-600 text-sm mt-2 hover:underline">
+                          <Download className="w-4 h-4 inline mr-1" />
+                          {getText('Download', 'ទាញយក')}
+                        </button>
+                      </div>
+                      
+                      <div className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow cursor-pointer">
+                        <AlertCircle className="w-8 h-8 text-red-500 mb-2" />
+                        <h3 className="font-semibold">{getText('Emergency Contacts', 'ទំនាក់ទំនងបន្ទាន់')}</h3>
+                        <p className="text-sm text-gray-600 mt-1">Important numbers</p>
+                        <button className="text-blue-600 text-sm mt-2 hover:underline">
+                          <Download className="w-4 h-4 inline mr-1" />
+                          {getText('View', 'មើល')}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Emergency Contacts */}
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+                      <h3 className="font-semibold text-red-900 mb-3 flex items-center">
+                        <AlertCircle className="w-5 h-5 mr-2" />
+                        {getText('Emergency Contacts', 'ទំនាក់ទំនងបន្ទាន់')}
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div>
+                          <p className="font-medium text-red-800">Building Manager</p>
+                          <p className="text-red-700">012-345-678</p>
+                        </div>
+                        <div>
+                          <p className="font-medium text-red-800">Security</p>
+                          <p className="text-red-700">098-765-432</p>
+                        </div>
+                        <div>
+                          <p className="font-medium text-red-800">Maintenance</p>
+                          <p className="text-red-700">070-123-456</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Modals */}
+              <NotificationsModal />
+              <MessagesModal />
+              <QRPaymentModal />
+            </div>
+          );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<StayEaseApp />);
+    </script>
+</body>
+</html>
